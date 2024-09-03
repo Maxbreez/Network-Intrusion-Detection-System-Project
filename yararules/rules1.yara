@@ -8,7 +8,7 @@ rule zipExtensionFound{
 rule PE_FILE_HEADER{
     meta:
         description = "YARA rules for pe detection in the NIDS program"
-        author = "cybersecadventures01123"
+        author = "maxwellandhamza"
         reference = "https://www.nextron-systems.com/2018/01/22/write-yara-rules-detect-embedded-exe-files-ole-objects/"
     strings:
         $hex1 = "546869732070726f6772616d2063616e6e6f742062652072756e20696e20444f53206d6f6465" ascii
