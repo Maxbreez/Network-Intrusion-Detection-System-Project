@@ -160,3 +160,12 @@ cython_debug/
 #  and can be added to the global gitignore or merged into this file.  For a more nuclear
 #  option (not recommended) you can uncomment the following to ignore the entire idea folder.
 #.idea/
+
+# nids.py runtime state - none of this belongs in version control
+# (temp/ specifically is why old capture pcaps ended up committed before)
+temp/
+savedpcap/
+alerts.db
+nids.log
+nids.log.*
+*.spec.bak

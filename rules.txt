@@ -1,8 +1,16 @@
-!alert udp any any -> any 53 DNS DNS DNS
-!alert udp any 53 -> any any DNS DNS DNS
-!alert tcp 192.168.0.0/24 any -> any any OUTGOING HOME NET RANGE READ
-!alert udp any any -> any any UDP ALERT
-alert tcp any any -> 192.168.0.0/24 any INCOMING HOME NET RANGE READ
-alert tcp any any -> any 8080 HTTP TRAFFIC
-alert tcp any 80 -> any any HTTP TRAFFIC
-alert tcp any any -> any 80 HTTP TRAFFIC
+alert udp any any -> any 53 DNS ALERT
+alert udp any 53 -> any any DNS ALERT
+alert udp any any -> any 1900 SSDP ALERT
+alert udp any 1900 -> any any SSDP ALERT
+
+# Rate-based example: only fires once the same source has hit port 22 this
+# many times within the window, instead of alerting on every single packet.
+alert tcp any any -> any 22 Possible SSH brute force threshold: count 10, seconds 30
+
+# Content-match example: flags cleartext FTP passwords (FTP has no
+# encryption, so the PASS command is sent as plain text on the wire).
+alert tcp any any -> any 21 Possible cleartext FTP credentials content:"PASS " redact
+
+# Port-range example: 4444-4450 is a common default listener range for
+# reverse-shell tooling (e.g. Metasploit's default 4444).
+alert tcp any any -> any 4444:4450 Possible reverse shell listener port
